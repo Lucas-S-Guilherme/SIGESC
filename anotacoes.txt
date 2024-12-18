@@ -1,0 +1,3 @@
+A atividade de hoje seria configurar a parte de relacionamento (1 para muitos)
+Pra contar a presença vou olhar os commits de hoje 17/12
+Tem q mandar o script do banco lá no git
