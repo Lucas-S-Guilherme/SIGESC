@@ -16,7 +16,7 @@ namespace SistemaEscalas.Models
 
         public string? email {get; set;}
 
-        public string? re {get; set;}
+        public string? matricula {get; set;}
 
 
     }

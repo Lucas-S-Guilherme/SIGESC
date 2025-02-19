@@ -2,8 +2,11 @@ namespace SistemaEscalas.Models
 {
     public class Funcao
     {
-        public int id {get; set;}
+        public int Id {get; set;}
 
-        public string? nome {get; set;}
+        public string? Nome {get; set;}
+
+        public string? Sigla {get; set;}
+
     }
 }

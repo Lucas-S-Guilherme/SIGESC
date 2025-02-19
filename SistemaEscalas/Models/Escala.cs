@@ -7,14 +7,13 @@ namespace SistemaEscalas.Models
     [Table("escala")]
     public class Escala
     {
-        public int id {get; set;}
-        public string? tipo {get; set;}
-        public DateTime dataInicio {get; set;}
-        public DateTime dataFinal {get; set;}
-        public string? descricao {get; set;}
-        public string? local_trabalho {get; set;}
-        public string? regime_trabalho {get;set;}
-        
+        public int Id {get; set;}
+        public string? Nome {get; set;}
+        public string? Local_trabalho {get; set;}
+        public DateTime DataInicio {get; set;}
+        public DateTime DataFim {get; set;}
+        public string? DataConfeccao {get; set;}      
+        public int IdUsuario {get;set;}        
 
     }
 }

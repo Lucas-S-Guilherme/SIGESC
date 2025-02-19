@@ -1,5 +1,7 @@
 CREATE DATABASE SIGESC;
 
+#DROP DATABASE SIGESC;
+
 use SIGESC;
 
 CREATE TABLE usuario (
@@ -79,6 +81,7 @@ FOREIGN KEY (id_restricao) REFERENCES restricao (id_restricao)
 CREATE TABLE escala (
 id_escala INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 nome_escala VARCHAR (255),
+local_trabalho VARCHAR (255),
 data_inicio DATETIME NOT NULL,
 data_fim DATETIME NOT NULL,
 data_confeccao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -107,7 +110,7 @@ FOREIGN KEY (id_combatente) REFERENCES combatente (id_combatente),
 FOREIGN KEY (id_turno) REFERENCES turno_trabalho (id_turno_trabalho)
 );
 
-REATE VIEW combatente_ultimos_turnos AS
+CREATE VIEW combatente_ultimos_turnos AS
 SELECT 
     c.id_combatente,
     c.nome_combatente,
@@ -117,14 +120,14 @@ SELECT
     ttc.hora_inicio,
     ttc.hora_fim,
     TIMESTAMPDIFF(HOUR, IFNULL(LAG(ttc.hora_fim) OVER (PARTITION BY c.id_combatente ORDER BY ttc.hora_inicio), NOW()), ttc.hora_inicio) AS horas_descanso
-FROM turno_trabalho_combatente ttc
+FROM turno_combatente ttc
 JOIN combatente c ON ttc.id_combatente = c.id_combatente
 JOIN turno_trabalho tt ON ttc.id_turno = tt.id_turno_trabalho;
 
 DELIMITER $$
 
 CREATE TRIGGER verificar_descanso_antes_insert
-BEFORE INSERT ON turno_trabalho_combatente
+BEFORE INSERT ON turno_combatente
 FOR EACH ROW
 BEGIN
     DECLARE ultimo_fim DATETIME;
@@ -138,7 +141,7 @@ BEGIN
 
     -- Obtém o fim do último turno trabalhado pelo combatente
     SELECT MAX(hora_fim) INTO ultimo_fim
-    FROM turno_trabalho_combatente
+    FROM turno_combatente
     WHERE id_combatente = NEW.id_combatente;
 
     -- Se houver um turno anterior, calcula o descanso
