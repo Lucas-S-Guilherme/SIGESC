@@ -7,12 +7,12 @@ using SistemaEscalas.Models;
 namespace SistemaEscalas.Controllers
 {
     [ApiController]
-    [Route("usuarios")]
-    public class UsuarioController : Controller
+    [Route("restricoes")]
+    public class RestricaoController : Controller
     {
         private readonly AppDbContext _context;
 
-        public UsuarioController(AppDbContext context)
+        public RestricaoController(AppDbContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuarios = await _context.Usuarios.ToListAsync();
-                return Ok(usuarios);
+                var restricoes = await _context.Restricoes.ToListAsync();
+                return Ok(restricoes);
             }
             catch (Exception e)
             {
@@ -36,12 +36,12 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var restricao = await _context.Restricoes.FindAsync(id);
+                if (restricao == null)
                 {
-                    return NotFound($"Usuário #{id} não encontrado");
+                    return NotFound($"Restrição #{id} não encontrada");
                 }
-                return Ok(usuario);
+                return Ok(restricao);
             }
             catch (Exception e)
             {
@@ -50,25 +50,21 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UsuarioDto item)
+        public async Task<IActionResult> Post([FromBody] RestricaoDto item)
         {
             try
             {
-                var usuario = new Usuario
+                var restricao = new Restricao
                 {
-                    Tipo = item.Tipo,
                     Nome = item.Nome,
-                    CPF = item.CPF,
-                    DataNascimento = item.DataNascimento,
-                    Telefone = item.Telefone,
-                    Email = item.Email,
-                    Matricula = item.Matricula
+                    Grupo = item.Grupo,
+                    Descricao = item.Descricao
                 };
 
-                await _context.Usuarios.AddAsync(usuario);
+                await _context.Restricoes.AddAsync(restricao);
                 await _context.SaveChangesAsync();
 
-                return Created("", usuario);
+                return Created("", restricao);
             }
             catch (Exception e)
             {
@@ -77,28 +73,24 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UsuarioDto item)
+        public async Task<IActionResult> Put(int id, [FromBody] RestricaoDto item)
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var restricao = await _context.Restricoes.FindAsync(id);
+                if (restricao == null)
                 {
                     return NotFound();
                 }
 
-                usuario.Tipo = item.Tipo;
-                usuario.Nome = item.Nome;
-                usuario.CPF = item.CPF;
-                usuario.DataNascimento = item.DataNascimento;
-                usuario.Telefone = item.Telefone;
-                usuario.Email = item.Email;
-                usuario.Matricula = item.Matricula;
+                restricao.Nome = item.Nome;
+                restricao.Grupo = item.Grupo;
+                restricao.Descricao = item.Descricao;
 
-                _context.Usuarios.Update(usuario);
+                _context.Restricoes.Update(restricao);
                 await _context.SaveChangesAsync();
 
-                return Ok(usuario);
+                return Ok(restricao);
             }
             catch (Exception e)
             {
@@ -111,13 +103,13 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var restricao = await _context.Restricoes.FindAsync(id);
+                if (restricao == null)
                 {
                     return NotFound();
                 }
 
-                _context.Usuarios.Remove(usuario);
+                _context.Restricoes.Remove(restricao);
                 await _context.SaveChangesAsync();
 
                 return Ok();

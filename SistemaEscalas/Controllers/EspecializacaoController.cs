@@ -7,12 +7,12 @@ using SistemaEscalas.Models;
 namespace SistemaEscalas.Controllers
 {
     [ApiController]
-    [Route("usuarios")]
-    public class UsuarioController : Controller
+    [Route("especializacoes")]
+    public class EspecializacaoController : Controller
     {
         private readonly AppDbContext _context;
 
-        public UsuarioController(AppDbContext context)
+        public EspecializacaoController(AppDbContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuarios = await _context.Usuarios.ToListAsync();
-                return Ok(usuarios);
+                var especializacoes = await _context.Especializacoes.ToListAsync();
+                return Ok(especializacoes);
             }
             catch (Exception e)
             {
@@ -36,12 +36,12 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var especializacao = await _context.Especializacoes.FindAsync(id);
+                if (especializacao == null)
                 {
-                    return NotFound($"Usuário #{id} não encontrado");
+                    return NotFound($"Especialização #{id} não encontrada");
                 }
-                return Ok(usuario);
+                return Ok(especializacao);
             }
             catch (Exception e)
             {
@@ -50,25 +50,22 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UsuarioDto item)
+        public async Task<IActionResult> Post([FromBody] EspecializacaoDto item)
         {
             try
             {
-                var usuario = new Usuario
+                var especializacao = new Especializacao
                 {
-                    Tipo = item.Tipo,
                     Nome = item.Nome,
-                    CPF = item.CPF,
-                    DataNascimento = item.DataNascimento,
-                    Telefone = item.Telefone,
-                    Email = item.Email,
-                    Matricula = item.Matricula
+                    Descricao = item.Descricao,
+                    Sigla = item.Sigla
+                    
                 };
 
-                await _context.Usuarios.AddAsync(usuario);
+                await _context.Especializacoes.AddAsync(especializacao);
                 await _context.SaveChangesAsync();
 
-                return Created("", usuario);
+                return Created("", especializacao);
             }
             catch (Exception e)
             {
@@ -77,28 +74,24 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UsuarioDto item)
+        public async Task<IActionResult> Put(int id, [FromBody] EspecializacaoDto item)
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var especializacao = await _context.Especializacoes.FindAsync(id);
+                if (especializacao == null)
                 {
                     return NotFound();
                 }
 
-                usuario.Tipo = item.Tipo;
-                usuario.Nome = item.Nome;
-                usuario.CPF = item.CPF;
-                usuario.DataNascimento = item.DataNascimento;
-                usuario.Telefone = item.Telefone;
-                usuario.Email = item.Email;
-                usuario.Matricula = item.Matricula;
+                especializacao.Nome = item.Nome;
+                especializacao.Descricao = item.Descricao;
+                especializacao.Sigla = item.Sigla;
 
-                _context.Usuarios.Update(usuario);
+                _context.Especializacoes.Update(especializacao);
                 await _context.SaveChangesAsync();
 
-                return Ok(usuario);
+                return Ok(especializacao);
             }
             catch (Exception e)
             {
@@ -111,13 +104,13 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var especializacao = await _context.Especializacoes.FindAsync(id);
+                if (especializacao == null)
                 {
                     return NotFound();
                 }
 
-                _context.Usuarios.Remove(usuario);
+                _context.Especializacoes.Remove(especializacao);
                 await _context.SaveChangesAsync();
 
                 return Ok();

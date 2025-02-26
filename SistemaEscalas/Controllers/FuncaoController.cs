@@ -7,12 +7,12 @@ using SistemaEscalas.Models;
 namespace SistemaEscalas.Controllers
 {
     [ApiController]
-    [Route("usuarios")]
-    public class UsuarioController : Controller
+    [Route("funcoes")]
+    public class FuncaoController : Controller
     {
         private readonly AppDbContext _context;
 
-        public UsuarioController(AppDbContext context)
+        public FuncaoController(AppDbContext context)
         {
             _context = context;
         }
@@ -22,8 +22,8 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuarios = await _context.Usuarios.ToListAsync();
-                return Ok(usuarios);
+                var funcoes = await _context.Funcoes.ToListAsync();
+                return Ok(funcoes);
             }
             catch (Exception e)
             {
@@ -36,12 +36,12 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var funcao = await _context.Funcoes.FindAsync(id);
+                if (funcao == null)
                 {
-                    return NotFound($"Usuário #{id} não encontrado");
+                    return NotFound($"Função #{id} não encontrada");
                 }
-                return Ok(usuario);
+                return Ok(funcao);
             }
             catch (Exception e)
             {
@@ -50,25 +50,20 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] UsuarioDto item)
+        public async Task<IActionResult> Post([FromBody] FuncaoDto item)
         {
             try
             {
-                var usuario = new Usuario
+                var funcao = new Funcao
                 {
-                    Tipo = item.Tipo,
                     Nome = item.Nome,
-                    CPF = item.CPF,
-                    DataNascimento = item.DataNascimento,
-                    Telefone = item.Telefone,
-                    Email = item.Email,
-                    Matricula = item.Matricula
+                    Sigla = item.Sigla
                 };
 
-                await _context.Usuarios.AddAsync(usuario);
+                await _context.Funcoes.AddAsync(funcao);
                 await _context.SaveChangesAsync();
 
-                return Created("", usuario);
+                return Created("", funcao);
             }
             catch (Exception e)
             {
@@ -77,28 +72,23 @@ namespace SistemaEscalas.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] UsuarioDto item)
+        public async Task<IActionResult> Put(int id, [FromBody] FuncaoDto item)
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var funcao = await _context.Funcoes.FindAsync(id);
+                if (funcao == null)
                 {
                     return NotFound();
                 }
 
-                usuario.Tipo = item.Tipo;
-                usuario.Nome = item.Nome;
-                usuario.CPF = item.CPF;
-                usuario.DataNascimento = item.DataNascimento;
-                usuario.Telefone = item.Telefone;
-                usuario.Email = item.Email;
-                usuario.Matricula = item.Matricula;
+                funcao.Nome = item.Nome;
+                funcao.Sigla = item.Sigla;
 
-                _context.Usuarios.Update(usuario);
+                _context.Funcoes.Update(funcao);
                 await _context.SaveChangesAsync();
 
-                return Ok(usuario);
+                return Ok(funcao);
             }
             catch (Exception e)
             {
@@ -111,13 +101,13 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var usuario = await _context.Usuarios.FindAsync(id);
-                if (usuario == null)
+                var funcao = await _context.Funcoes.FindAsync(id);
+                if (funcao == null)
                 {
                     return NotFound();
                 }
 
-                _context.Usuarios.Remove(usuario);
+                _context.Funcoes.Remove(funcao);
                 await _context.SaveChangesAsync();
 
                 return Ok();
