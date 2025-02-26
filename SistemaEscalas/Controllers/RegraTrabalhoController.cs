@@ -83,4 +83,39 @@ namespace SistemaEscalas.Controllers
                 }
 
                 regra.Descricao = item.Descricao;
-                regra.HorasDescanso
+                regra.HorasDescansoMinimas = item.HorasDescansoMinimas;
+
+                _context.RegrasTrabalho.Update(regra);
+                await _context.SaveChangesAsync();
+
+                return Ok(regra);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var regra = await _context.RegrasTrabalho.FindAsync(id);
+                if (regra == null)
+                {
+                    return NotFound();
+                }
+
+                _context.RegrasTrabalho.Remove(regra);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
+    }
+}

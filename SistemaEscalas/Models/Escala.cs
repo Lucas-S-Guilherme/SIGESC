@@ -5,14 +5,21 @@ namespace SistemaEscalas.Models
 {
     public class Escala
     {
+        // Construtor com parâmetros obrigatórios
+        public Escala(Usuario usuario, ICollection<TurnoTrabalho> turnosTrabalho)
+        {
+            Usuario = usuario;
+            TurnosTrabalho = turnosTrabalho;
+        }
+
         [Column("id_escala")]
         public int Id { get; set; }
 
         [Column("nome_escala")]
-        public required string Nome { get; set; }
+        public string Nome { get; set; }
 
         [Column("local_trabalho")]
-        public required string LocalTrabalho { get; set; }
+        public string LocalTrabalho { get; set; }
 
         [Column("data_inicio")]
         public DateTime DataInicio { get; set; }
@@ -28,7 +35,6 @@ namespace SistemaEscalas.Models
 
         public required Usuario Usuario { get; set; }
 
-        // Propriedade de navegação para os turnos de trabalho associados
         public required ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
     }
 }
