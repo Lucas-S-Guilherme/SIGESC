@@ -9,15 +9,15 @@ namespace SistemaEscalas.Models
         public int Id { get; set; }
 
         [Column("nome_restricao")]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Column("grupo_restricao")]
-        public string Grupo { get; set; }
+        public required string Grupo { get; set; }
 
         [Column("descricao_restricao")]
-        public string Descricao { get; set; }
+        public required string Descricao { get; set; }
 
         // Propriedade de navegação para os combatentes associados
-        public ICollection<CombatenteRestricao> Combatentes { get; set; }
+        public required ICollection<CombatenteRestricao> Combatentes { get; set; }
     }
 }

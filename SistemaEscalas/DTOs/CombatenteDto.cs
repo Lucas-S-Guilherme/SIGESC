@@ -2,14 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SistemaEscalas.Dtos
 {
-    public class UsuarioDto
+    public class CombatenteDto
     {
         [Required]
-        [MinLength(5, ErrorMessage = "O tipo de usuário deve ter no mínimo 5 caracteres")]
-        public required string Tipo { get; set; }
-
-        [Required]
-        [MinLength(5, ErrorMessage = "O nome do usuário deve ter no mínimo 5 caracteres")]
+        [MinLength(5, ErrorMessage = "O nome do combatente deve ter no mínimo 5 caracteres")]
         public required string Nome { get; set; }
 
         [Required]
@@ -28,5 +24,7 @@ namespace SistemaEscalas.Dtos
         [Required]
         [MinLength(9, ErrorMessage = "A matrícula deve ter no mínimo 9 caracteres")]
         public required string Matricula { get; set; }
+
+        public DateTime? UltimoTurnoTrabalhado { get; set; }
     }
 }

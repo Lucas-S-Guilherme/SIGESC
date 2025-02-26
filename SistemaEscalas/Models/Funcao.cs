@@ -9,12 +9,12 @@ namespace SistemaEscalas.Models
         public int Id { get; set; }
 
         [Column("nome_funcao")]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Column("sigla_funcao")]
-        public string Sigla { get; set; }
+        public required string Sigla { get; set; }
 
         // Propriedade de navegação para os combatentes associados
-        public ICollection<CombatenteFuncao> Combatentes { get; set; }
+        public ICollection<CombatenteFuncao>? Combatentes { get; set; }
     }
 }

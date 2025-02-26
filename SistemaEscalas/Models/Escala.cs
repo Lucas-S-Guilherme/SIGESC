@@ -9,10 +9,10 @@ namespace SistemaEscalas.Models
         public int Id { get; set; }
 
         [Column("nome_escala")]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Column("local_trabalho")]
-        public string LocalTrabalho { get; set; }
+        public required string LocalTrabalho { get; set; }
 
         [Column("data_inicio")]
         public DateTime DataInicio { get; set; }
@@ -26,9 +26,9 @@ namespace SistemaEscalas.Models
         [Column("id_usuario")]
         public int UsuarioId { get; set; }
 
-        public Usuario Usuario { get; set; }
+        public required Usuario Usuario { get; set; }
 
         // Propriedade de navegação para os turnos de trabalho associados
-        public ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
+        public required ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
     }
 }
