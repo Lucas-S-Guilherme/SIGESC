@@ -1,23 +1,31 @@
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SistemaEscalas.Models
 {
     public class Usuario
     {
-        public int id {get; set;}
-        public string? tipo {get; set;}
+        [Column("id_usuario")]
+        public int Id { get; set; }
 
-        public string? nome {get; set;}
+        [Column("tipo_usuario")]
+        public string Tipo { get; set; }
 
-        public string? cpf {get; set;}
+        [Column("nome_usuario")]
+        public string Nome { get; set; }
 
-        public DateOnly dataNascimento {get; set;}
+        [Column("cpf_usuario")]
+        public string CPF { get; set; }
 
-        public string? telefone {get; set;}
+        [Column("data_nascimento_usuario")]
+        public DateOnly DataNascimento { get; set; }
 
-        public string? email {get; set;}
+        [Column("telefone_usuario")]
+        public string Telefone { get; set; }
 
-        public string? matricula {get; set;}
+        [Column("email_usuario")]
+        public string Email { get; set; }
 
-
+        [Column("matricula")]
+        public string Matricula { get; set; }
     }
 }

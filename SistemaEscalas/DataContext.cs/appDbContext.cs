@@ -23,7 +23,7 @@ namespace ApiGestaoFacil.DataContexts
         public DbSet<CombatenteFuncao> CombatenteFuncoes { get; set; }
         public DbSet<CombatenteRestricao> CombatenteRestricoes { get; set; }
 
-        // https://learn.microsoft.com/pt-br/ef/ef6/modeling/code-first/fluent/relationships
+                //https://learn.microsoft.com/pt-br/ef/core/modeling/relationships
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Combatente>()

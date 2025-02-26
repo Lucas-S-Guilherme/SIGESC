@@ -1,9 +1,16 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SistemaEscalas.Models
 {
     public class RegraTrabalho
     {
-        public int IdRegraTrabalho { get; set; }
-        public string? DescricaoRegraTrabalho { get; set; }
+        [Column("id_regra_trabalho")]
+        public int Id { get; set; }
+
+        [Column("descricao_regra_trabalho")]
+        public string Descricao { get; set; }
+
+        [Column("horas_descanso_minimas")]
         public int HorasDescansoMinimas { get; set; }
     }
 }

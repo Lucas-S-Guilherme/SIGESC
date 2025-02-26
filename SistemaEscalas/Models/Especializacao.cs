@@ -1,14 +1,19 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace SistemaEscalas.Models
 {
     public class Especializacao
     {
-        public int id {get; set;}
+        [Column("id_especializacao")]
+        public int Id { get; set; }
 
-        public string? nome {get; set;}
+        [Column("nome_especializacao")]
+        public string Nome { get; set; }
 
-        public string? descricao {get; set;}
+        [Column("descricao_especializacao")]
+        public string Descricao { get; set; }
 
-        public string? sigla {get; set;}
-
+        [Column("sigla_especializacao")]
+        public string Sigla { get; set; }
     }
 }

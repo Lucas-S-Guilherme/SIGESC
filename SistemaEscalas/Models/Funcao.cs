@@ -1,12 +1,16 @@
-namespace SistemaEscalas.Models 
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SistemaEscalas.Models
 {
     public class Funcao
     {
-        public int Id {get; set;}
+        [Column("id_funcao")]
+        public int Id { get; set; }
 
-        public string? Nome {get; set;}
+        [Column("nome_funcao")]
+        public string Nome { get; set; }
 
-        public string? Sigla {get; set;}
-
+        [Column("sigla_funcao")]
+        public string Sigla { get; set; }
     }
 }
