@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace SistemaEscalas.Models
 {
@@ -17,5 +18,8 @@ namespace SistemaEscalas.Models
         public int EscalaId { get; set; }
 
         public Escala Escala { get; set; }
+
+        // Propriedade de navegação para os turnos dos combatentes associados
+        public ICollection<TurnoCombatente> TurnosCombatente { get; set; }
     }
 }

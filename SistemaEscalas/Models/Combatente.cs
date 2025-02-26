@@ -26,8 +26,20 @@ namespace SistemaEscalas.Models
         public string? Matricula {get; set;}
 
         [Column("ultimo_turno_trabalhado")]
-        public DateTime UltimoTurnoTrabalhado {get;set;}       
+        public DateTime UltimoTurnoTrabalhado {get;set;}
+
+        // Propriedade de navegação para as especializações do combatente
+        public ICollection<CombatenteEspecializacao>? Especializacoes { get; set; }
+
+        // Propriedade de navegação para as funções do combatente
+        public ICollection<CombatenteFuncao>? Funcoes { get; set; }
+
+        // Propriedade de navegação para as restrições do combatente
+        public ICollection<CombatenteRestricao>? Restricoes { get; set; }
+
+        // Propriedade de navegação para os turnos do combatente
+        public ICollection<TurnoCombatente>? TurnosCombatente { get; set; }
+    }       
 
 
     }
-}

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace SistemaEscalas.Models
 {
@@ -15,5 +16,8 @@ namespace SistemaEscalas.Models
 
         [Column("descricao_restricao")]
         public string Descricao { get; set; }
+
+        // Propriedade de navegação para os combatentes associados
+        public ICollection<CombatenteRestricao> Combatentes { get; set; }
     }
 }

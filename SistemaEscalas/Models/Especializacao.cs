@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace SistemaEscalas.Models
 {
@@ -15,5 +16,8 @@ namespace SistemaEscalas.Models
 
         [Column("sigla_especializacao")]
         public string Sigla { get; set; }
+
+        // Propriedade de navegação para os combatentes associados
+        public required ICollection<CombatenteEspecializacao> Combatentes { get; set; }
     }
 }

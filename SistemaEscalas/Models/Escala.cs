@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace SistemaEscalas.Models
 {
@@ -26,5 +27,8 @@ namespace SistemaEscalas.Models
         public int UsuarioId { get; set; }
 
         public Usuario Usuario { get; set; }
+
+        // Propriedade de navegação para os turnos de trabalho associados
+        public ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
     }
 }
