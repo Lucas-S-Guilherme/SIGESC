@@ -18,6 +18,6 @@ namespace SistemaEscalas.Models
         public required string Sigla { get; set; }
 
         // Propriedade de navegação para os combatentes associados
-        public required ICollection<CombatenteEspecializacao> Combatentes { get; set; }
+        public ICollection<CombatenteEspecializacao> Combatentes { get; set; }
     }
 }

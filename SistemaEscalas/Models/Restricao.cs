@@ -15,9 +15,9 @@ namespace SistemaEscalas.Models
         public required string Grupo { get; set; }
 
         [Column("descricao_restricao")]
-        public required string Descricao { get; set; }
+        public string Descricao { get; set; }
 
         // Propriedade de navegação para os combatentes associados
-        public required ICollection<CombatenteRestricao> Combatentes { get; set; }
+        public ICollection<CombatenteRestricao> Combatentes { get; set; }
     }
 }

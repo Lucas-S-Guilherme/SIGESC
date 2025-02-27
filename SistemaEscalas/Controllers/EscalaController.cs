@@ -76,7 +76,8 @@ namespace SistemaEscalas.Controllers
                     LocalTrabalho = item.LocalTrabalho,
                     DataInicio = item.DataInicio,
                     DataFim = item.DataFim,
-                    UsuarioId = item.UsuarioId
+                    UsuarioId = item.UsuarioId,
+                    DataConfeccao = DateTime.UtcNow // Exemplo de valor padrão
                 };
 
                 await _context.Escalas.AddAsync(escala);

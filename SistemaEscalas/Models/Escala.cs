@@ -33,8 +33,10 @@ namespace SistemaEscalas.Models
         [Column("id_usuario")]
         public int UsuarioId { get; set; }
 
-        public required Usuario Usuario { get; set; }
+        // Remova o 'required'
+        public Usuario Usuario { get; set; }
 
-        public required ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
+        // Remova o 'required'
+        public ICollection<TurnoTrabalho> TurnosTrabalho { get; set; }
     }
 }
