@@ -2,40 +2,45 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using SistemaEscalas.DataContexts;
 
-var builder = WebApplication.CreateBuilder(args); // ok
+var builder = WebApplication.CreateBuilder(args);
 
+// 1. Configuração do Entity Framework (DbContext)
+var connectionString = builder.Configuration.GetConnectionString("default");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
+);
+
+// 2. Configuração dos Controladores com JsonOptions
 builder.Services.AddControllers().AddJsonOptions(x =>
-   {
-       x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-       x.JsonSerializerOptions.WriteIndented = true;
-   }); //ok
-   
-builder.Services.AddEndpointsApiExplorer(); //ok
+{
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    x.JsonSerializerOptions.WriteIndented = true;
+});
 
-builder.Services.AddSwaggerGen(); //ok
+// 3. Configuração do Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-var app = builder.Build(); // ok
+// 4. Configuração de JsonOptions global (opcional)
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+    options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+);
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
+
+// 5. Configuração do Ambiente de Desenvolvimento
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-// Busca string de conex�o e adiciona a classe AppDbContext Service do EF
-var connectionString = builder.Configuration.GetConnectionString("default");
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString))
-);
+// 6. Middlewares
+app.UseAuthentication(); // Habilita autenticação (se necessário)
+app.UseAuthorization();  // Habilita autorização
 
-builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options => options.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
-
-app.UseAuthentication();
-app.UseAuthorization();
-
+// 7. Mapeamento dos Controladores
 app.MapControllers();
 
-app.Run(); //ok
-
+// 8. Execução da Aplicação
+app.Run();
