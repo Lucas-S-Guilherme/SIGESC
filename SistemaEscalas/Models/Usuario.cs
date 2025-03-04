@@ -31,5 +31,7 @@ namespace SistemaEscalas.Models
 
         // Propriedade de navegação para as escalas associadas
         public ICollection<Escala>? Escalas { get; set; }
+        public string EmailUsuario { get; internal set; }
+        public string Senha { get; internal set; }
     }
 }
