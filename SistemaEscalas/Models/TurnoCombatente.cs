@@ -20,9 +20,9 @@ namespace SistemaEscalas.Models
         public DateTime HoraFim { get; set; }
 
         [Column("status_descanso")]
-        public string StatusDescanso { get; set; }
+        public string? StatusDescanso { get; set; }
 
-        public Combatente Combatente { get; set; }
-        public TurnoTrabalho Turno { get; set; }
+        public Combatente? Combatente { get; set; }
+        public TurnoTrabalho? Turno { get; set; }
     }
 }

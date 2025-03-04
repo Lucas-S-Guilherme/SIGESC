@@ -10,7 +10,7 @@ namespace SistemaEscalas.Models
         [Column("id_funcao")]
         public int FuncaoId { get; set; }
 
-        public Combatente Combatente { get; set; }
-        public Funcao Funcao { get; set; }
+        public Combatente? Combatente { get; set; }
+        public Funcao? Funcao { get; set; }
     }
 }

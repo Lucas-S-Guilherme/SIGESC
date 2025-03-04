@@ -17,9 +17,9 @@ namespace SistemaEscalas.Models
         [Column("id_escala")]
         public int EscalaId { get; set; }
 
-        public Escala Escala { get; set; }
+        public Escala? Escala { get; set; }
 
         // Propriedade de navegação para os turnos dos combatentes associados
-        public ICollection<TurnoCombatente> TurnosCombatente { get; set; }
+        public ICollection<TurnoCombatente>? TurnosCombatente { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace SistemaEscalas.Models
         [Column("id_restricao")]
         public int RestricaoId { get; set; }
 
-        public Combatente Combatente { get; set; }
-        public Restricao Restricao { get; set; }
+        public Combatente? Combatente { get; set; }
+        public Restricao? Restricao { get; set; }
     }
 }

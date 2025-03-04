@@ -10,7 +10,7 @@ namespace SistemaEscalas.Models
         [Column("id_especializacao")]
         public int EspecializacaoId { get; set; }
 
-        public Combatente Combatente { get; set; }
-        public Especializacao Especializacao { get; set; }
+        public Combatente? Combatente { get; set; }
+        public Especializacao? Especializacao { get; set; }
     }
 }
