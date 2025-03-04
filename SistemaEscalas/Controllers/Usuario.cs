@@ -9,7 +9,7 @@ namespace SistemaEscalas.Controllers
 {
     [ApiController]
     [Route("usuarios")]
-    [Authorize] // lembre-se de gerar o token de authorização na rota /auth/login, e authorizar no Swagger em Available authorizations (cadeado do lado direito da rota)
+    [Authorize] //lembre-se de gerar o token de authorização na rota /auth/login, e authorizar no Swagger em Available authorizations (cadeado do lado direito da rota)
     public class UsuarioController : Controller
     {
         private readonly AppDbContext _context;

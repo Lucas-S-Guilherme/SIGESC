@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SistemaEscalas.DataContexts;
@@ -8,6 +9,7 @@ namespace SistemaEscalas.Controllers
 {
     [ApiController]
     [Route("turnos-combatente")]
+    [Authorize]
     public class TurnoCombatenteController : Controller
     {
         private readonly AppDbContext _context;
