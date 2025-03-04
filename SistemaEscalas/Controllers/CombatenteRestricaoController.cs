@@ -57,6 +57,49 @@ namespace SistemaEscalas.Controllers
             }
         }
 
+         [HttpPut("{combatenteId}/{restricaoId}")]
+        public async Task<IActionResult> Put(int combatenteId, int restricaoId, [FromBody] CombatenteRestricaoDto item)
+        {
+            try
+            {
+                // Verifica se a associação existe
+                var combatenteRestricao = await _context.CombatenteRestricoes
+                    .FirstOrDefaultAsync(cr => cr.CombatenteId == combatenteId && cr.RestricaoId == restricaoId);
+
+                if (combatenteRestricao == null)
+                {
+                    return NotFound("Associação entre combatente e função não encontrada.");
+                }
+
+                // Verifica se o novo Combatente existe
+                var novoCombatente = await _context.Combatentes.FindAsync(item.CombatenteId);
+                if (novoCombatente == null)
+                {
+                    return NotFound("Novo combatente não encontrado.");
+                }
+
+                // Verifica se a nova Funcao existe
+                var novaRestricao = await _context.Funcoes.FindAsync(item.RestricaoId);
+                if (novaRestricao == null)
+                {
+                    return NotFound("Nova função não encontrada.");
+                }
+
+                // Atualiza os IDs da associação
+                combatenteRestricao.CombatenteId = item.CombatenteId;
+                combatenteRestricao.RestricaoId = item.RestricaoId;
+
+                _context.CombatenteRestricoes.Update(combatenteRestricao);
+                await _context.SaveChangesAsync();
+
+                return Ok(combatenteRestricao);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int combatenteId, int restricaoId)
         {
