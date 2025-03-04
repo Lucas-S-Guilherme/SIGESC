@@ -17,7 +17,7 @@ namespace SistemaEscalas.Controllers
             _context = context;
         }
 
-        [HttpGet]
+        [HttpGet]        
         public async Task<IActionResult> GetAll()
         {
             try
@@ -25,6 +25,33 @@ namespace SistemaEscalas.Controllers
                 var turnos = await _context.TurnosCombatente
                     .Include(t => t.Combatente)
                     .Include(t => t.Turno)
+                    .Select(t => new 
+                    {
+                        t.Id,
+                        t.CombatenteId,
+                        t.TurnoId,
+                        t.HoraInicio,
+                        t.HoraFim,
+                        t.StatusDescanso,
+                        Combatente = new 
+                        {
+                            t.Combatente.Id,
+                            t.Combatente.Nome,
+                            t.Combatente.CPF,
+                            t.Combatente.DataNascimento,
+                            t.Combatente.Telefone,
+                            t.Combatente.Email,
+                            t.Combatente.Matricula,
+                            t.Combatente.UltimoTurnoTrabalhado
+                        },
+                        Turno = new 
+                        {
+                            t.Turno.Id,
+                            t.Turno.DataInicio,
+                            t.Turno.DataFim,
+                            t.Turno.EscalaId
+                        }
+                    })
                     .ToListAsync();
 
                 return Ok(turnos);
