@@ -109,13 +109,22 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var turno = await _context.TurnosTrabalho.FindAsync(id);
+                // Busca o TurnoTrabalho e seus registros dependentes
+                var turno = await _context.TurnosTrabalho
+                    .Include(t => t.TurnosCombatente) // Carrega os registros dependentes
+                    .FirstOrDefaultAsync(t => t.Id == id);
+
                 if (turno == null)
                 {
-                    return NotFound();
+                    return NotFound($"Turno de trabalho #{id} não encontrado");
                 }
 
+                // Remove os registros dependentes em TurnoCombatente
+                _context.TurnosCombatente.RemoveRange(turno.TurnosCombatente);
+
+                // Remove o TurnoTrabalho
                 _context.TurnosTrabalho.Remove(turno);
+
                 await _context.SaveChangesAsync();
 
                 return Ok();
