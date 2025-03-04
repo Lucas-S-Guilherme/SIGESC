@@ -62,7 +62,9 @@ namespace SistemaEscalas.Controllers
                     DataNascimento = item.DataNascimento,
                     Telefone = item.Telefone,
                     Email = item.Email,
-                    Matricula = item.Matricula
+                    Matricula = item.Matricula,
+                    Senha = item.Senha
+
                 };
 
                 await _context.Usuarios.AddAsync(usuario);

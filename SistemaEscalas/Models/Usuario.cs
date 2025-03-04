@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 
 namespace SistemaEscalas.Models
 {
@@ -29,9 +28,10 @@ namespace SistemaEscalas.Models
         [Column("matricula")]
         public required string Matricula { get; set; }
 
+        [Column("senha")]
+        public required string Senha { get; set; }
+
         // Propriedade de navegação para as escalas associadas
         public ICollection<Escala>? Escalas { get; set; }
-        public string EmailUsuario { get; internal set; }
-        public string Senha { get; internal set; }
     }
 }
