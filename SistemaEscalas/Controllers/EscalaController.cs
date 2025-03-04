@@ -25,6 +25,26 @@ namespace SistemaEscalas.Controllers
                 var escalas = await _context.Escalas
                     .Include(e => e.Usuario)
                     .Include(e => e.TurnosTrabalho)
+                    .Select(e => new 
+                    {
+                        e.Id,
+                        e.Nome,
+                        e.LocalTrabalho,
+                        e.DataInicio,
+                        e.DataFim,
+                        e.DataConfeccao,
+                        Usuario = new 
+                        {
+                            e.Usuario.Id,
+                            e.Usuario.Nome
+                        },
+                        TurnosTrabalho = e.TurnosTrabalho.Select(t => new 
+                        {
+                            t.Id,
+                            t.DataInicio,
+                            t.DataFim
+                        })
+                    })
                     .ToListAsync();
 
                 return Ok(escalas);
@@ -35,7 +55,7 @@ namespace SistemaEscalas.Controllers
             }
         }
 
-        [HttpGet("{id}")]
+       [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             try
@@ -43,12 +63,34 @@ namespace SistemaEscalas.Controllers
                 var escala = await _context.Escalas
                     .Include(e => e.Usuario)
                     .Include(e => e.TurnosTrabalho)
-                    .FirstOrDefaultAsync(e => e.Id == id);
+                    .Where(e => e.Id == id)
+                    .Select(e => new 
+                    {
+                        e.Id,
+                        e.Nome,
+                        e.LocalTrabalho,
+                        e.DataInicio,
+                        e.DataFim,
+                        e.DataConfeccao,
+                        Usuario = new 
+                        {
+                            e.Usuario.Id,
+                            e.Usuario.Nome
+                        },
+                        TurnosTrabalho = e.TurnosTrabalho.Select(t => new 
+                        {
+                            t.Id,
+                            t.DataInicio,
+                            t.DataFim
+                        })
+                    })
+                    .FirstOrDefaultAsync();
 
                 if (escala == null)
                 {
                     return NotFound($"Escala #{id} não encontrada");
                 }
+
                 return Ok(escala);
             }
             catch (Exception e)
