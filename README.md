@@ -44,14 +44,10 @@ Este projeto consiste em uma **API RESTful** que permite o gerenciamento de esca
 - **Linguagem**: C# 8.0
 - **Framework**: .NET 8.0
 - **Banco de Dados**: MySQL
-- **ORM**: Entity Framework Core
-- **Autenticação**: JWT (JSON Web Tokens)
-- **Documentação**: Swagger (Swashbuckle.AspNetCore)
-- **Pacotes NuGet**:
-  - `Microsoft.EntityFrameworkCore` (8.0.11)
-  - `Pomelo.EntityFrameworkCore.MySql` (8.0.2)
-  - `Swashbuckle.AspNetCore` (6.6.2)
-
+- **ORM**: Entity Framework Core (8.0.11)
+- **Autenticação**: JWT (JSON Web Tokens) (8.0.13)
+- **Documentação**: Swagger (Swashbuckle.AspNetCore) (6.6.2)
+- 
 ---
 
 ## 📋 Estrutura do Projeto
