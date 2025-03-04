@@ -35,6 +35,52 @@ namespace SistemaEscalas.Controllers
             }
         }
 
+         [HttpGet("{combatenteId}/{restricaoId}")]
+        public async Task<IActionResult> GetById(int combatenteId, int restricaoId)
+        {
+            try
+            {
+                var combatenteRestricao = await _context.CombatenteRestricoes
+                    .Include(cr => cr.Combatente)
+                    .Include(cr => cr.Restricao)
+                    .Select(cr => new
+                    {
+                        cr.CombatenteId,
+                        cr.RestricaoId,
+                        Combatente = new
+                        {
+                            cr.Combatente.Id,
+                            cr.Combatente.Nome,
+                            cr.Combatente.CPF,
+                            cr.Combatente.DataNascimento,
+                            cr.Combatente.Telefone,
+                            cr.Combatente.Email,
+                            cr.Combatente.Matricula,
+                            cr.Combatente.UltimoTurnoTrabalhado
+                        },
+                        Restricao = new
+                        {
+                            cr.Restricao.Id,
+                            cr.Restricao.Nome,
+                            cr.Restricao.Grupo,
+                            cr.Restricao.Descricao
+                        }
+                    })
+                    .FirstOrDefaultAsync(cr => cr.CombatenteId == combatenteId && cr.RestricaoId == restricaoId);
+
+                if (combatenteRestricao == null)
+                {
+                    return NotFound("Associação entre combatente e função não encontrada.");
+                }
+
+                return Ok(combatenteRestricao);
+            }
+            catch (Exception e)
+            {
+                return Problem(e.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CombatenteRestricaoDto item)
         {
