@@ -57,7 +57,7 @@ namespace SistemaEscalas.Controllers
             }
         }
 
-        [HttpPost]
+       [HttpPost]
         public async Task<IActionResult> Post([FromBody] EscalaDto item)
         {
             try
@@ -69,14 +69,16 @@ namespace SistemaEscalas.Controllers
                     return BadRequest("Usuário não encontrado.");
                 }
 
-                // Crie a instância de Escala usando o construtor
-                var escala = new Escala(usuario, new List<TurnoTrabalho>())
+                // Crie a instância de Escala
+                var escala = new Escala
                 {
                     Nome = item.Nome,
                     LocalTrabalho = item.LocalTrabalho,
                     DataInicio = item.DataInicio,
                     DataFim = item.DataFim,
                     UsuarioId = item.UsuarioId,
+                    Usuario = usuario, // Inicializa a propriedade de navegação
+                    TurnosTrabalho = new List<TurnoTrabalho>(), // Inicializa a coleção
                     DataConfeccao = DateTime.UtcNow // Exemplo de valor padrão
                 };
 

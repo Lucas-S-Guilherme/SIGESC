@@ -23,6 +23,20 @@ namespace SistemaEscalas.DataContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configuração dos nomes das tabelas
+            modelBuilder.Entity<Usuario>().ToTable("usuario");
+            modelBuilder.Entity<Especializacao>().ToTable("especializacao");
+            modelBuilder.Entity<Funcao>().ToTable("funcao");
+            modelBuilder.Entity<Restricao>().ToTable("restricao");
+            modelBuilder.Entity<Combatente>().ToTable("combatente");
+            modelBuilder.Entity<RegraTrabalho>().ToTable("regra_trabalho");
+            modelBuilder.Entity<Escala>().ToTable("escala");
+            modelBuilder.Entity<TurnoTrabalho>().ToTable("turno_trabalho");
+            modelBuilder.Entity<TurnoCombatente>().ToTable("turno_combatente");
+            modelBuilder.Entity<CombatenteEspecializacao>().ToTable("combatente_especializacao");
+            modelBuilder.Entity<CombatenteFuncao>().ToTable("combatente_funcao");
+            modelBuilder.Entity<CombatenteRestricao>().ToTable("combatente_restricao");
+
             // Configuração dos relacionamentos
 
             // CombatenteEspecializacao (tabela de junção)

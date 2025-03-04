@@ -4,7 +4,7 @@ namespace SistemaEscalas.Models
 {
     public class Combatente 
     {
-        [Column("id_ser")]
+        [Column("id_combatente")]
         public int Id {get; set;}
 
         [Column("nome_combatente")]
