@@ -123,12 +123,27 @@ namespace SistemaEscalas.Controllers
         {
             try
             {
-                var combatente = await _context.Combatentes.FindAsync(id);
+                var combatente = await _context.Combatentes
+                    .Include(c => c.Especializacoes)
+                    .Include(c => c.Funcoes)
+                    .Include(c => c.Restricoes)
+                    .Include(c => c.TurnosCombatente) // Inclui os turnos do combatente
+                    .FirstOrDefaultAsync(c => c.Id == id);
+
                 if (combatente == null)
                 {
                     return NotFound();
                 }
 
+                // Remove os relacionamentos
+                _context.CombatenteEspecializacoes.RemoveRange(combatente.Especializacoes);
+                _context.CombatenteFuncoes.RemoveRange(combatente.Funcoes);
+                _context.CombatenteRestricoes.RemoveRange(combatente.Restricoes);
+
+                // Remove os turnos do combatente
+                _context.TurnosCombatente.RemoveRange(combatente.TurnosCombatente);
+
+                // Remove o combatente
                 _context.Combatentes.Remove(combatente);
                 await _context.SaveChangesAsync();
 
@@ -136,7 +151,8 @@ namespace SistemaEscalas.Controllers
             }
             catch (Exception e)
             {
-                return Problem(e.Message);
+                var innerException = e.InnerException?.Message;
+                return Problem($"Erro: {e.Message}. Inner Exception: {innerException}");
             }
         }
     }
