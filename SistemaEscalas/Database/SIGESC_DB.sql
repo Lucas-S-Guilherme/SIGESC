@@ -12,13 +12,14 @@ cpf_usuario VARCHAR (11) NOT NULL UNIQUE,
 data_nascimento_usuario DATE NOT NULL,
 telefone_usuario VARCHAR (11),
 email_usuario VARCHAR (255),
-matricula VARCHAR(9) NOT NULL
+matricula VARCHAR(9) NOT NULL,
+senha VARCHAR(255) NOT NULL
 );
 
-INSERT INTO usuario (tipo_usuario, nome_usuario, cpf_usuario, data_nascimento_usuario, telefone_usuario, email_usuario, matricula)
+INSERT INTO usuario (tipo_usuario, nome_usuario, cpf_usuario, data_nascimento_usuario, telefone_usuario, email_usuario, matricula, senha)
 VALUES 
-('Administrador', 'João Silva', '12345678901', '1990-01-01', '11987654321', 'joao.silva@example.com', '123456789'),
-('Usuário Comum', 'Maria Oliveira', '98765432109', '1985-05-15', '11912345678', 'maria.oliveira@example.com', '987654321');
+('Administrador', 'João Silva', '12345678901', '1990-01-01', '11987654321', 'joao.silva@example.com', '123456789', '12345'),
+('Usuário Comum', 'Maria Oliveira', '98765432109', '1985-05-15', '11912345678', 'maria.oliveira@example.com', '987654321', '12345');
 
 CREATE TABLE especializacao (
 id_especializacao INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
