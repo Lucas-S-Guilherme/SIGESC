@@ -98,6 +98,7 @@ namespace SistemaEscalas.Controllers
                 usuario.Telefone = item.Telefone;
                 usuario.Email = item.Email;
                 usuario.Matricula = item.Matricula;
+                usuario.Senha = item.Senha;
 
                 _context.Usuarios.Update(usuario);
                 await _context.SaveChangesAsync();

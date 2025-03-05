@@ -28,6 +28,9 @@ namespace SistemaEscalas.Dtos
         [Required]
         [MinLength(9, ErrorMessage = "A matrícula deve ter no mínimo 9 caracteres")]
         public required string Matricula { get; set; }
-        public string Senha { get; internal set; }
+
+        [Required]
+        [MinLength(5, ErrorMessage = "A Senha deve ter no mínimo 5 caracteres")]
+        public required string Senha { get; set; }        
     }
 }
